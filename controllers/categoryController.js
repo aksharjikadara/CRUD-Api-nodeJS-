@@ -11,13 +11,13 @@ const create = async(req, res)=>{
 
 //  Read all Category
 const readAll = async(req,res) => {
-    const categorys = await Category.find()
-    res.send(categorys)
+    const category = await Category.find().populate('categoryId')
+    res.send(category)
 }
 
 // Get one Category
 const readById = async (req, res)=>{
-    const category = await Category.findById(req.params.categoryId)
+    const category = await Category.findById(req.params.categoryId).populate('categoryId')
     res.send(category)
 }
 
@@ -26,11 +26,11 @@ const updateById = async (req, res)=>{
     const category = {
         categoryName : req.body.categoryName
     }
-    const Updatedcategory = await Category.findByIdAndUpdate(
+    const updatedCategory = await Category.findByIdAndUpdate(
         {_id : req.params.categoryId}, 
         category
         )
-    res.send(Updatedcategory)
+    res.send(updatedCategory)
 }
 
 // Delete Category
